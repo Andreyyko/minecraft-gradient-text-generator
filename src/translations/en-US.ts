@@ -59,7 +59,6 @@ export default {
         import: "Import",
         export: "Export",
         clear: "Clear",
-        download_template: "Download template",
       },
       table: {
         column: {
@@ -82,7 +81,6 @@ export default {
         json: "JSON",
         css: "CSS",
         split_with_comma: "Comma separated text",
-        download_template_success: "Template downloaded successfully",
       },
     },
     input: {

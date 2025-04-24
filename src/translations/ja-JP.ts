@@ -57,7 +57,6 @@ export default {
         import: "インポート",
         export: "エクスポート",
         clear: "クリア",
-        download_template: "テンプレートをダウンロード",
       },
       table: {
         column: {
@@ -74,7 +73,6 @@ export default {
       import_success: "{count} 件のグラデーションプリセットをインポートしました",
       import_failed: "このファイルを認識できませんでした。再試行するか、開発者に連絡してください",
       export_success: "プリセットのエクスポートに成功しました",
-      download_template_success: "テンプレートのダウンロードに成功しました",
     },
     import: {
       title: "グラデーションカラーをインポート",

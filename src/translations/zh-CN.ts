@@ -51,7 +51,6 @@ export default {
         import: "导入",
         export: "导出",
         clear: "清空",
-        download_template: "下载模板",
       },
       table: {
         column: {
@@ -68,7 +67,6 @@ export default {
       import_success: "已导入 {count} 条渐变色预设",
       import_failed: "无法识别此文件，请重试或联系开发者",
       export_success: "预设导出成功",
-      download_template_success: "模板下载成功",
     },
     import: {
       title: "导入渐变色",

@@ -24,7 +24,6 @@ import { useTextStore } from "@/plugins/store/modules/text";
 import { saveAs } from "@/utils/file";
 import { PreviewPip, requestPreviewPip } from "../preview-pip";
 import { useI18n } from "vue-i18n";
-import { I18nLoader } from "@/plugins/i18n";
 
 const appStore = useAppStore();
 const textStore = useTextStore();
@@ -206,7 +205,7 @@ const onDownloadClickHandler = () => {
   const mimeType = appStore.usingAdapter?.mimeType ?? "text/plain";
   const blob = new Blob([result], { type: `${mimeType}; charset=utf-8` });
 
-  const time = new Date().toLocaleString(I18nLoader.getBrowserLanguage()).replace(/[\\|,]/g, "-").replace(" ", "-");
+  const time = new Date().toLocaleString().replace(/\\/g, "-").replace(" ", "_");
   const fileName = `MCG-${appStore.setting.usingAdapterKey}-${time}`;
 
   saveAs(blob, fileName).then(() => {
