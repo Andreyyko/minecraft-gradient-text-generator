@@ -33,12 +33,13 @@ export const adapterMap = new Map<KeyOfAdapterMap, AdapterMapValue>([
     { label: "MiniMessage#Gradient (adventure-api)", sample: "<gradient:[color1]:[color...]>", adapter: MiniMessageGradientAdapter },
   ],
   ["minedown", { label: "MineDown", sample: "&#RRGGBB&", adapter: MineDownAdapter }],
-  ["stringified-nbt", { label: "Stringified NBT", sample: '{"text":"T","color":"#RRGGBB"}', adapter: StringifiedNBTAdapter }],
+  ["stringified-nbt", { label: "Stringified NBT", sample: '{"text":"T","color":"#RRGGBB"}', hint: "需要改进", adapter: StringifiedNBTAdapter }],
   ["trchat", { label: "TrChat", sample: "&{#RRGGBB}", adapter: TrChatAdapter }],
   ["motd", { label: "MOTD", sample: "\\u00A7X", adapter: MotdAdapter }],
   ["bbcode", { label: "BBCode", sample: "[color=#RRGGBB]", adapter: BBCodeAdapter }],
-  ["html", { label: "HTML", sample: '<span style="color: #RRGGBB"/>', adapter: HTMLAdapter }],
-  ["csv", { label: "CSV", sample: "#RRGGBB,T", adapter: CSVAdapter }],
+  ["json", { label: "JSON", sample: '{"text":"T","color":"#RRGGBB"}', mimeType: "application/json", adapter: StringifiedNBTAdapter }],
+  ["html", { label: "HTML", sample: '<span style="color: #RRGGBB"/>', mimeType: "text/html", adapter: HTMLAdapter }],
+  ["csv", { label: "CSV", sample: "#RRGGBB,T", mimeType: "text/csv", adapter: CSVAdapter }],
 ]);
 
 export const adapterMapKey = [
@@ -53,6 +54,7 @@ export const adapterMapKey = [
   "trchat",
   "motd",
   "bbcode",
+  "json",
   "html",
   "csv",
 ] as const;

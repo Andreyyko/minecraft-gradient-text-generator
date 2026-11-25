@@ -18,7 +18,7 @@
           <div class="panel-bottom">
             <span>希望支持其它插件/格式？</span>
             <t-link theme="primary"
-              href="https://github.com/tuanzisama/minecraft-color-gradient-generator/issues/new/choose" target="_blank">
+              href="https://github.com/tuanzisama/minecraft-gradient-text-generator/issues/new/choose" target="_blank">
               联系开发者！
             </t-link>
           </div>
@@ -108,6 +108,8 @@ export interface TextParamsProps {
 
 .usage-time {
   margin-left: 10px;
+  color: #a6a6a6;
+  font-size: 14px;
 }
 </style>
 

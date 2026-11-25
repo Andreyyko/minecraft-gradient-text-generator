@@ -1,14 +1,14 @@
 <template>
-  <ul class="toolbar-container">
+  <div class="toolbar-container">
     <template v-for="(item, index) in toolbars" :key="index">
       <t-popup v-if="item?.isDisplay ?? true" :content="item.label">
-        <li class="toolbar-box" :class="{ 'is-active': item.isActive, 'has-divider': item.divider }"
-          @click="onToolbarItemClickHandler(item)">
+        <t-button class="tool-button" shape="square" variant="outline"
+          :class="{ 'is-active': item.isActive, 'has-divider': item.divider }" @click="onToolbarItemClickHandler(item)">
           <component :is="item.render(item)" />
-        </li>
+        </t-button>
       </t-popup>
     </template>
-  </ul>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +17,7 @@ import { useAppStore } from "../../plugins/store/modules/app";
 import { MessagePlugin, NotifyPlugin } from "tdesign-vue-next";
 import { useTextStore } from "@/plugins/store/modules/text";
 import { saveAs } from "@/utils/file";
+import { previewPip } from '../preview-pip'
 
 const appStore = useAppStore();
 const textStore = useTextStore();
@@ -37,13 +38,27 @@ const toolbars = reactive<ToolBarItem[]>([
     label: "字符格式",
     isActive: false,
     render: (item: ToolBarItem) => h("span", { class: "vanilla-char-code" }, item.isActive ? "§" : "&"),
-    divider: true,
   },
-  { key: ToolBarModule.DOWNLOAD, label: "下载", render: (item: ToolBarItem) => h("span", { class: "material-symbols-outlined" }, "download") },
+  {
+    key: ToolBarModule.PREVIEW,
+    label: "预览",
+    isActive: true,
+    render: (item: ToolBarItem) => h("span", { class: "material-symbols-outlined" }, item.isActive ? "preview" : "preview_off")
+  },
+  {
+    key: ToolBarModule.PREVIEW_PIP,
+    label: "新窗口预览",
+    isDisplay: false,
+    render: (item: ToolBarItem) => h("span", { class: "material-symbols-outlined" }, "picture_in_picture_alt")
+  },
+  {
+    key: ToolBarModule.DOWNLOAD,
+    label: "下载",
+    render: (item: ToolBarItem) => h("span", { class: "material-symbols-outlined" }, "download")
+  },
   {
     key: ToolBarModule.COPY,
     label: "复制",
-    divider: true,
     render: (item: ToolBarItem) => h("span", { class: "material-symbols-outlined small-icon" }, "content_copy"),
   },
 ]);
@@ -53,8 +68,12 @@ onMounted(() => {
     const element = toolbars[i];
     const key = element.key;
 
-    if (element.hasOwnProperty("isActive")) {
-      element.isActive = appStore.setting.format[key as never] as boolean;
+    if (key === ToolBarModule.VANILLA_CHAR_CODE) {
+      element.isActive = appStore.setting.format.vanillaCharCode === '§';
+    }
+
+    if (key === ToolBarModule.PREVIEW_PIP) {
+      element.isDisplay = window.hasOwnProperty('documentPictureInPicture')
     }
   }
 });
@@ -63,7 +82,7 @@ const onToolbarItemClickHandler = (item: ToolBarItem) => {
   switch (item.key) {
     case "vanillaCharCode":
       item.isActive = !item.isActive;
-      appStore.setting.format.vanillaCharCode = item.isActive ? "§" : "&";
+      appStore.setVanillaCharCode(item.isActive ? "§" : "&");
       emit("on-format-change");
       break;
     case "copy":
@@ -71,6 +90,13 @@ const onToolbarItemClickHandler = (item: ToolBarItem) => {
       break;
     case "download":
       onDownloadClickHandler();
+      break;
+    case "preview":
+      item.isActive = !item.isActive
+      appStore.setSimulateMode(item.isActive ? "chat" : "default")
+      break;
+    case "preview_pip":
+      previewPip()
       break;
   }
 };
@@ -138,6 +164,8 @@ export enum ToolBarModule {
   VANILLA_CHAR_CODE = "vanillaCharCode",
   COPY = "copy",
   DOWNLOAD = "download",
+  PREVIEW = "preview",
+  PREVIEW_PIP = "preview_pip",
 }
 
 export interface ToolBarEmit {
@@ -152,67 +180,16 @@ export interface ToolBarExpose {
 <style lang="scss" scoped>
 .toolbar-container {
   display: flex;
+  gap: 10px;
 }
 
-.toolbar-box {
-  width: 30px;
-  height: 30px;
-  border: 2px dashed #dcdfe6;
-  border-radius: 5px;
-  @include flex-vcenter;
-  cursor: pointer;
-  color: #17233d;
-  transition: 0.3s all;
-  user-select: none;
-  margin-right: 10px;
-  display: flex;
-
+.tool-button {
   .material-symbols-outlined {
     font-size: 22px;
 
     &.small-icon {
       font-size: 18px;
     }
-  }
-
-  &:last-child.has-divider::after {
-    display: none !important;
-  }
-
-  &.has-divider {
-    position: relative;
-    margin-right: 20px;
-
-    &::after {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      right: -13px;
-      transform: translateY(-50%);
-      width: 2px;
-      height: 80%;
-      background: #e7e7e7;
-    }
-  }
-
-  &.is-active {
-    color: #17233d;
-    border-color: rgba($color: #000000, $alpha: 0);
-    background: #e6e8eb;
-  }
-
-  &:hover {
-    border-color: #606266;
-  }
-
-  &:last-child {
-    margin-right: 0px;
-  }
-
-  &:active {
-    border-color: #cdd0d6;
-    background: #f5f7fa;
   }
 
   .vanilla-char-code {

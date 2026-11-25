@@ -52,6 +52,29 @@ export abstract class GradientProcessor<T = string> {
    */
   abstract processor(tag: RichTag): T;
 
+  public chunker(): FlattenTag[] {
+    let startIndex = 0;
+    return this.tagChunk.map<FlattenTag>((chunk) => {
+      const result = chunk.reduce<FlattenTag["tags"]>((acc, tag) => {
+        const length = tag.text.replace(/\t|\s|\r|\n/g, "").length;
+        const tagColors = this.gradientColors.slice(startIndex, startIndex + length);
+        startIndex = startIndex + length;
+
+        let index = -1;
+        const insideTag = tag.text.split("").map((char) => {
+          if (char.trim() !== "") index += 1;
+          return { char, color: char.trim() === "" ? null : (tagColors?.[index] as HexColorString) };
+        });
+        return acc.concat(insideTag);
+      }, []);
+      let tag: FlattenTag = { tags: result };
+      if (chunk?.[0]?.format) {
+        tag.format = chunk?.[0]?.format;
+      }
+      return tag;
+    });
+  }
+
   public generate(): T[][] {
     let startIndex = 0;
     return this.tagChunk.map<T[]>((chunk) => {
@@ -86,8 +109,6 @@ export abstract class GradientProcessor<T = string> {
       const chapterEl = document.createElement("p");
 
       chunk.forEach((tag) => {
-        console.info(tag);
-
         const length = tag.text.replace(/\t|\s|\r|\n/g, "").length;
         const tagColors = this.gradientColors.slice(startIndex, startIndex + length);
         startIndex = startIndex + length;
@@ -95,7 +116,6 @@ export abstract class GradientProcessor<T = string> {
         let colorIndex = 0;
 
         tag.text.split("").forEach((char) => {
-          console.info(char);
           const spanEl = document.createElement("span");
           // class="is-bold is-italic is-underlined is-strikethrough" style="--text-color: #55ffa4; --text-shadow-color: #156a3d;"
           if (char.trim() !== "") {
@@ -103,7 +123,7 @@ export abstract class GradientProcessor<T = string> {
             tag.format?.italic && spanEl.classList.add("is-italic");
             tag.format?.underlined && spanEl.classList.add("is-underlined");
             tag.format?.strikethrough && spanEl.classList.add("is-strikethrough");
-            
+
             const color = tagColors[colorIndex];
             spanEl.style.setProperty("--text-color", color);
             spanEl.style.setProperty("--text-shadow-color", getTextShadowHex(color));

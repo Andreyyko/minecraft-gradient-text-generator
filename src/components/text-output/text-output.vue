@@ -3,7 +3,10 @@
     <template #header>
       <text-params :usage-time="usageTime" />
     </template>
-    <div class="preview-content" v-html="htmlResult"></div>
+    <div class="preview-content">
+      <div v-if="appStore.setting.simulateMode === 'default'" v-html="htmlResult"></div>
+      <preview v-if="appStore.setting.simulateMode === 'chat'" :adapter="textStore.adapter as GradientProcessor" />
+    </div>
     <div class="output-content">
       <pre><code>{{ mcResult }}</code></pre>
     </div>
@@ -20,6 +23,8 @@ import { useEventBus } from "../../plugins/eventbus";
 import TextParams from "../text-params/text-params.vue";
 import { isEmpty } from "lodash-es";
 import { McgCard } from "../mcg-card";
+import { Preview } from "../preview-pip";
+import { GradientProcessor } from "@/plugins/processor/processor-core";
 
 const appStore = useAppStore();
 const textStore = useTextStore();
