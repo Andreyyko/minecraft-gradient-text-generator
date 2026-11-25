@@ -1,5 +1,9 @@
-import Header from "./header.vue";
-import Footer from "./footer.vue";
+import McgHeader from "./header.vue";
+import McgFooter from "./footer.vue";
+import McgBody from "./body.vue";
 
-export const McgHeader = Header;
-export const McgFooter = Footer;
+export {
+  McgHeader,
+  McgFooter,
+  McgBody
+}

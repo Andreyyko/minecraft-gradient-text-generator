@@ -1,23 +1,28 @@
 import { defineStore } from "pinia";
+import { KeyOfProcessorMap } from "../../../plugins/processor";
 
 export interface AppStoreState {
   processText: string;
   setting: {
     /**
-     * 字符模式
-     * 客户端发送使用&，服务端发送使用§
-     */
-    charMode: "&" | "§";
-    /**
-     * 兼容模式
-     * 仅限服务器不支持&amp;&num;前缀发送Hex颜色
-     */
-    compatibleMode: boolean;
-    /**
-     * 移除空格
      * 移除空格/换行/制表符
      */
-    clearSpaceCharacter: boolean;
+    clearWhiteSpace: boolean;
+    /**
+     * 模拟模式
+     */
+    simulateMode: "default" | "chat";
+    format: {
+      bold: boolean;
+      italic: boolean;
+      underlined: boolean;
+      strikethrough: boolean;
+      /**
+       * 字符模式
+       */
+      vanillaCharCode: "&" | "§";
+    };
+    usingProcessor: KeyOfProcessorMap;
   };
 }
 
@@ -25,16 +30,24 @@ export const useAppStore = defineStore("app", {
   state: (): AppStoreState => ({
     processText: "",
     setting: {
-      charMode: "&",
-      compatibleMode: false,
-      clearSpaceCharacter: true,
+      clearWhiteSpace: true,
+      simulateMode: "chat",
+      format: {
+        bold: false,
+        italic: false,
+        underlined: false,
+        strikethrough: false,
+        vanillaCharCode: "&",
+      },
+      usingProcessor: "vanilla",
     },
   }),
   actions: {
-    saveSetting(data: AppStoreState["setting"]) {
-      this.setting.charMode = data.charMode;
-      this.setting.compatibleMode = data.compatibleMode;
-      this.setting.clearSpaceCharacter = data.clearSpaceCharacter;
+    switchSimulateMode() {
+      this.setting.simulateMode = this.setting.simulateMode === "chat" ? "default" : "chat";
+    },
+    switchClearWhiteSpace() {
+      this.setting.clearWhiteSpace = !this.setting.clearWhiteSpace;
     },
   },
   persist: {
