@@ -17,6 +17,7 @@ export default {
     contact_developer: "開発者に連絡！",
     not_affiliated_notice: '"Minecraft" は Mojang Synergies AB の商標です',
     translate_by: "{author}が翻訳に参加しました",
+    close: "閉じる",
   },
   input: {
     placeholder: "何かを書いてみてください...",
@@ -123,6 +124,9 @@ export default {
       trchat: {
         label: "TrChat",
       },
+      chat_colors: {
+        label: "Chat Colors",
+      },
       motd: {
         label: "MOTD",
       },
@@ -145,6 +149,7 @@ export default {
       download: "ダウンロード",
       preview: "プレビュー",
       preview_pip: "ピクチャ・イン・ピクチャ",
+      share: "共有",
     },
   },
   output: {
@@ -153,5 +158,20 @@ export default {
     copy_failed: "コピーに失敗しました。ブラウザを更新するか、開発者に連絡してください",
     download_success: "エクスポート成功",
     download_failed: "エクスポートに失敗しました。開発者に連絡してください",
+  },
+  guide: {
+    previous_button: "前へ",
+    next_button: "次へ",
+    finish_button: "終了",
+    intro: {
+      title: "ようこそ {app_title} へ",
+      summary: "次へをクリックしてユーザーガイドを表示します",
+    },
+    step1: {
+      title: "文字にスタイルを設定するには？",
+    },
+    step2: {
+      title: "おしゃれなスタイルをどう使えばいいの？",
+    },
   },
 };

@@ -19,7 +19,7 @@
           src="https://badgen.net/github/stars/tuanzisama/minecraft-gradient-text-generator?color=FDD835">
       </a>
       <a class="badge-tag qq-group" href="https://qm.qq.com/q/wxxCCGLoHg" target="_blank"
-        title="点击链接加入群聊【Minecraft 渐变颜色生成器】" rel="noopener noreferrer nofollow">
+        title="点击链接加入群聊【Minecraft 渐变文字生成器】" rel="noopener noreferrer nofollow">
         <img alt="GitHub Repo stars"
           src="https://img.shields.io/badge/QQ%E7%BE%A4%20994713939-0099FF?logo=tencent-qq&logoColor=white">
       </a>
@@ -29,7 +29,7 @@
         [广告] PlayerTitle × 一款有点好用的玩家称号插件
       </t-link> -->
     <p>{{ $t("common.not_affiliated_notice") }}</p>
-    <p v-if="i18n.locale.value !== 'zh_CN'">{{ $t("common.translate_by", { author: $t("$internel.author") }) }}</p>
+    <p v-if="i18n.locale.value !== 'zh-CN'">{{ $t("common.translate_by", { author: $t("$internel.author") }) }}</p>
   </footer>
 </template>
 

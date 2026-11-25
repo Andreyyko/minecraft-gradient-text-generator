@@ -1,8 +1,9 @@
 export default {
   app: {
-    title: "Minecraft 渐变颜色生成器",
+    title: "Minecraft 渐变文字生成器",
     slogan: "支持超 {count} 款格式 / 混排样式 / 渐变预设",
-    timeago_locale: "zh-CN",
+    // timeago.js all locales: https://github.com/hustcc/timeago.js/tree/master/src/lang
+    timeago_locale: "zh_CN",
   },
   common: {
     download_tip: "请留意浏览器下载提示",
@@ -10,7 +11,7 @@ export default {
     contact_developer: "联系开发者！",
     not_affiliated_notice: '"Minecraft" 是 Mojang Synergies AB 的商标',
     translate_by: "由 {author} 翻译",
-    // timeago.js all locales: https://github.com/hustcc/timeago.js/tree/master/src/lang
+    close: "关闭",
   },
   input: {
     placeholder: "试着写一点什么...",
@@ -118,6 +119,9 @@ export default {
       trchat: {
         label: "TrChat",
       },
+      chat_colors: {
+        label: "Chat Colors",
+      },
       motd: {
         label: "MOTD",
       },
@@ -140,6 +144,7 @@ export default {
       download: "下载",
       preview: "预览",
       preview_pip: "新窗口预览",
+      share: "分享",
     },
   },
   output: {
@@ -148,5 +153,20 @@ export default {
     copy_failed: "复制失败，请尝试更新您的浏览器或联系开发者",
     download_success: "导出成功",
     download_failed: "导出失败，请联系开发者",
+  },
+  guide: {
+    previous_button: "上一步",
+    next_button: "下一步",
+    finish_button: "完成",
+    intro: {
+      title: "欢迎使用 {app_title}",
+      summary: "点按下一步查看用户引导",
+    },
+    step1: {
+      title: "如何为文字设置样式？",
+    },
+    step2: {
+      title: "那些好看的样式我该怎么用？",
+    },
   },
 };

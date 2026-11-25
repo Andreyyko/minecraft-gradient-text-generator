@@ -1,6 +1,6 @@
 {
   "name": "minecraft-color-gradient-generator",
-  "version": "2.5.0",
+  "version": "2.6.3",
   "license": "MIT",
   "scripts": {
     "dev": "vite --force --host",
@@ -20,12 +20,12 @@
     "reset.css": "^2.0.2",
     "tdesign-vue-next": "^1.7.1",
     "timeago.js": "^4.0.2",
-    "vanilla-caret-js": "^1.1.0",
     "vue": "^3.2.47",
     "vue-i18n": "9",
     "vuedraggable-es": "^4.1.1"
   },
   "devDependencies": {
+    "@irojs/iro-core": "^1.2.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.3.2",
     "@vitejs/plugin-vue": "^4.1.0",

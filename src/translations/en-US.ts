@@ -14,6 +14,7 @@ export default {
     contact_developer: "Contact the developer!",
     not_affiliated_notice: '"Minecraft" is a trademark of Mojang Synergies AB.',
     translate_by: "Translate by {author}",
+    close: "Close",
   },
   input: {
     placeholder: "Try to write something...",
@@ -121,6 +122,9 @@ export default {
       trchat: {
         label: "TrChat",
       },
+      chat_colors: {
+        label: "Chat Colors",
+      },
       motd: {
         label: "MOTD",
       },
@@ -143,6 +147,7 @@ export default {
       download: "Download",
       preview: "Preview",
       preview_pip: "Preview by Picture-in-Picture",
+      share: "Share",
     },
   },
   output: {
@@ -151,5 +156,20 @@ export default {
     copy_failed: "Copy failed. Try updating your browser or contact the developer.",
     download_success: "Export successful.",
     download_failed: "Export failed. Try to contact the developer.",
+  },
+  guide: {
+    previous_button: "Previous",
+    next_button: "Next",
+    finish_button: "Done",
+    intro: {
+      title: "Welcome to {app_title}",
+      summary: "Click Next to view the user guide.",
+    },
+    step1: {
+      title: "How to format text?",
+    },
+    step2: {
+      title: "How should I use those nice styles?",
+    },
   },
 };

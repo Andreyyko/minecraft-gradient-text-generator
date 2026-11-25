@@ -2,21 +2,22 @@
   <div class="preview-box-wrapper" ref="previewBoxRef">
     <div class="preview-box">
       <div class="content">
-        <p v-for="(chapter, chapterIndex) in chunker" :key="chapterIndex">
-
-          <template v-for="(item, index) in chapter.tags" :key="index">
-            <span v-if="item.char.trim() === ''" class="is-space">&nbsp;</span>
-            <span v-else :style="{
-              '--text-color': item.color as string,
-              '--text-shadow-color': getTextShadowHex(item.color as HexColorString),
-            }" :class="{
-              'is-bold': chapter.format?.bold,
-              'is-italic': chapter.format?.italic,
-              'is-underlined': chapter.format?.underlined,
-              'is-strikethrough': chapter.format?.strikethrough,
-            }">
-              {{ item.char }}
-            </span>
+        <p v-for="(chapter, chapterIndex) in chapters" :key="chapterIndex">
+          <template v-for="(words, wordsIndex) in chapter" :key="wordsIndex">
+            <template v-for="(word, wordIndex) in words.tags" :key="wordIndex">
+              <span :style="{
+                '--text-color': word.color as string,
+                '--text-shadow-color': getTextShadowHex(word.color as HexColorString),
+              }" :class="{
+                'is-bold': words.format?.bold,
+                'is-italic': words.format?.italic,
+                'is-underlined': words.format?.underlined,
+                'is-strikethrough': words.format?.strikethrough,
+                'is-space': word.character.trim() === '',
+              }">
+                {{ word.character.trim() === '' ? '&nbsp;' : word.character }}
+              </span>
+            </template>
           </template>
         </p>
       </div>
@@ -25,22 +26,15 @@
 </template>
 
 <script lang="ts" setup>
-import { GradientProcessor } from '@/plugins/processor/processor-core';
 import { computed } from 'vue';
 import { getTextShadowHex } from "@/utils/color";
+import { useTextStore } from "../../plugins/store/modules/text";
 
-const props = withDefaults(defineProps<PreviewBoxProps>(), {
-});
+const textStore = useTextStore()
 
-const chunker = computed(() => {
-  return props.adapter?.chunker() ?? []
+const chapters = computed(() => {
+  return textStore.adapter?.chapters ?? []
 })
-</script>
-
-<script lang="ts">
-export interface PreviewBoxProps {
-  adapter: GradientProcessor;
-}
 </script>
 
 <style lang="scss" scoped>
