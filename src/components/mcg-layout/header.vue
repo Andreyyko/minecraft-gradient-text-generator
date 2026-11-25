@@ -1,8 +1,8 @@
 <template>
   <header class="cg-header">
-    <p class="cg-header__title" :data-version="pkgVersion + modeText">Minecraft 渐变颜色生成器</p>
+    <p class="cg-header__title" :data-version="pkgVersion + modeText">{{ $t('app.title') }}</p>
     <p class="cg-header__summary">
-      <span class="header-tag">支持超 {{ processorCount }} 款格式 / 混排样式 / 渐变预设</span>
+      <span class="header-tag">{{ $t("app.slogan", { count: processorCount }) }}</span>
     </p>
   </header>
 </template>
@@ -35,6 +35,7 @@ const modeText = computed(() => {
     position: relative;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
 
     &::after {
       content: "v" attr(data-version);
@@ -58,8 +59,7 @@ const modeText = computed(() => {
 
     .header-tag {
       font-size: 14px;
-      padding: 0 10px;
-      height: 25px;
+      padding: 6px 10px;
       background: #f5f7fa;
       border: 1px solid #dcdfe6;
       color: #909399;
@@ -68,7 +68,7 @@ const modeText = computed(() => {
       align-items: center;
       overflow: hidden;
       user-select: none;
-
+      line-height: 18px;
     }
   }
 }

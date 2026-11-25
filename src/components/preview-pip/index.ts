@@ -2,7 +2,15 @@ import { Component, createApp, h } from "vue";
 import Preview from "./preview.vue";
 import { useTextStore } from "@/plugins/store/modules/text";
 
-export async function previewPip() {
+interface PreviewPipOptions {
+  onClose?: (event: PageTransitionEvent) => void;
+}
+
+export interface PreviewPip {
+  close: () => void;
+}
+
+export async function requestPreviewPip(options?: PreviewPipOptions): Promise<PreviewPip> {
   const textStore = useTextStore();
 
   const wrapperEl = document.createElement("div");
@@ -22,6 +30,20 @@ export async function previewPip() {
   document.querySelectorAll("style").forEach((style) => {
     pipWindow.document.head.appendChild(style.cloneNode(true));
   });
+
+  document.querySelectorAll("link").forEach((link) => {
+    if (link.getAttribute("rel") === "stylesheet") {
+      pipWindow.document.head.appendChild(link.cloneNode(true));
+    }
+  });
+
+  pipWindow.addEventListener("pagehide", (event: PageTransitionEvent) => {
+    options?.onClose?.(event);
+  });
+
+  return {
+    close: () => window.documentPictureInPicture?.window?.close(),
+  };
 }
 
 export { Preview };
